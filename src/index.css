@@ -1,1 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
 @import "tailwindcss";
+
+:root {
+  --primary: #10141e;
+  --secondary: #161d2f;
+  --tertiary: #5a698f;
+
+  --font-sans: "Outfit", san-serif;
+
+  --text-xl: 2rem; /* 32px */
+  --text-lg: 1.5rem; /* 24px */
+  --text-md: 1.25rem; /* 20px */
+  --text-base: 1rem; /* 16px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-xs: 0.75rem; /* 12px */
+
+  /* Line Heights */
+  --leading-xl: 2.25rem;
+  --leading-lg: 2rem;
+  --leading-md: 1.75rem;
+  --leading-base: 1.5rem;
+}
+@theme {
+  --color-blue-primary: #10141e;
+  --color-blue-secondary: #161d2f;
+  --color-blue-tertiary: #5a698f;
+  --color-red-primary: #fc4747;
+
+  --font-sans: var(--font-sans);
+
+  --text-heading-xl: var(--text-xl);
+  --text-heading-lg: var(--text-lg);
+  --text-heading-md: var(--text-md);
+
+  --text-body-lg: var(--text-base);
+  --text-body-md: var(--text-sm);
+  --text-body-sm: var(--text-xs);
+
+  --leading-heading-xl: var(--leading-xl);
+  --leading-heading-lg: var(--leading-lg);
+  --leading-heading-md: var(--leading-md);
+}

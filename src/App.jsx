@@ -1,7 +1,11 @@
+import SideBar from "./components/layout/SideBar";
+
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <div className="bg-blue-primary p-5 w-screen h-screen">
+        <SideBar />
+      </div>
     </>
   );
 }
