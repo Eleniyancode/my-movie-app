@@ -6,7 +6,7 @@ import NavBookmarkIcon from "../../../public/assets/icon-nav-bookmark.svg?react"
 function NavBar() {
   return (
     <nav>
-      <ul className="flex flex-col gap-5 ">
+      <ul className="flex lg:flex-col gap-5 md:gap-10 ">
         <li className="cursor-pointer">
           <NavHomeIcon className="text-[#5A698F] hover:text-white transition duration-200" />
         </li>

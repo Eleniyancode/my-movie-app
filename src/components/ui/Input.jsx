@@ -8,16 +8,17 @@ const Input = ({
   onChange,
   placeholder,
   error,
+  customstyle,
   disabled = false,
 }) => {
   const baseStyles =
-    "w-full rounded-lg border px-4 py-2 text-sm transition duration-200 outline-none font-sans font-bold dark:bg-tertiary-dark";
+    "w-full rounded-lg border border-blue-primary font-outfit px-4 py-2 text-sm transition duration-200 outline-none font-outfit font-bold bg-blue-primary dark:bg-blue-primary";
 
   const stateStyles = error
     ? "border-red-500 focus:border-red-500"
     : value
-      ? "border-gray-dark text-tertiary-dark dark:text-gray-dark font-bold focus:border-gray-dark focus:dark:bg-tertiary-light"
-      : "border-gray-light  text-tertiary-dark dark:text-gray-dark focus:border-gray-light focus:dark:bg-tertiary-light";
+      ? " text-blue-tertiary dark:text-gray-dark font-bold focus:border-blue-tertiary focus:dark:bg-tertiary-light"
+      : "  text-blue-tertiary dark:text-gray-dark focus:border-blue-tertiary focus:dark:bg-tertiary-light";
 
   return (
     <div className="flex flex-col gap-1">
@@ -38,8 +39,9 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`${baseStyles} ${stateStyles} ${
-          disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+        customstyle={customstyle}
+        className={`${baseStyles} ${stateStyles} ${customstyle} ${
+          disabled ? "bg-gray-100 cursor-not-allowed" : "bg-blue-primary"
         } dark:text-gray-dark`}
       />
 
