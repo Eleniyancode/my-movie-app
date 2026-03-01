@@ -1,11 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBar from "../ui/SearchBar";
 import RecommendedList from "./RecommendedList";
 import TrendingList from "./TrendingList";
 import { useMovieContext } from "../../context/useMovieContext";
+import QueryResultList from "./QueryResultList";
 
 function Main() {
-  const { page, totalPages, loading, loadNextPage } = useMovieContext();
+  const { page, totalPages, loading, loadNextPage, movies } = useMovieContext();
+  const [query, setQuery] = useState("");
 
   const containerRef = useRef(null);
 
@@ -43,9 +45,15 @@ function Main() {
       ref={containerRef}
       className="mx-5 w-[95%] mt-5 mb-5 lg:pb-20 h-screen overflow-y-scroll  bg-blue-primary"
     >
-      <SearchBar />
-      <TrendingList />
-      <RecommendedList />
+      <SearchBar query={query} setQuery={setQuery} />
+      {query ? (
+        <QueryResultList movies={movies} />
+      ) : (
+        <>
+          <TrendingList />
+          <RecommendedList />
+        </>
+      )}
     </div>
   );
 }

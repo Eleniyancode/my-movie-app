@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { MovieContext } from "./MovieContext";
-import { useAuth } from "./useAuthContext";
+// import { useAuth } from "./useAuthContext";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -33,6 +33,7 @@ export const MovieProvider = ({ children }) => {
       setTrendingMovies(data.results);
     } catch (err) {
       setError("Failed to fetch trending movies");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -54,6 +55,7 @@ export const MovieProvider = ({ children }) => {
       setTotalPages(data.total_pages);
     } catch (err) {
       setError("Failed to fetch movies");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -76,6 +78,7 @@ export const MovieProvider = ({ children }) => {
       setTotalPages(data.total_pages);
     } catch (err) {
       setError("Search failed");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -103,6 +106,7 @@ export const MovieProvider = ({ children }) => {
       setMovie(data);
     } catch (err) {
       setError("Failed to fetch movie details");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -123,6 +127,7 @@ export const MovieProvider = ({ children }) => {
       setTrailer(trailer ? trailer.key : null);
     } catch (err) {
       setError("Failed to fetch trailer");
+      console.error(err);
     }
   };
 
