@@ -7,7 +7,7 @@ function RecommendedMovieCard({ movie }) {
   const movieYear = new Date(movie.release_date).getFullYear();
   const rating = Math.round(movie.vote_average);
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 cursor-pointer">
       <div
         className="relative w-37.5 h-23.5 md:w-60 md:h-37.5 rounded-md bg-[url('../assets/thumbnails/beyond-earth/trending/large.jpg')] bg-cover bg-center"
         style={{

@@ -8,16 +8,16 @@ function NavBar() {
     <nav>
       <ul className="flex lg:flex-col gap-5 md:gap-10 ">
         <li className="cursor-pointer">
-          <NavHomeIcon className="text-[#5A698F] hover:text-white transition duration-200" />
+          <NavHomeIcon className="text-[#5A698F] hover:text-red-primary transition duration-200" />
         </li>
         <li className="cursor-pointer">
-          <NavMoviesIcon className="text-[#5A698F] hover:text-white transition duration-200" />
+          <NavMoviesIcon className="text-[#5A698F] hover:text-red-primary transition duration-200" />
         </li>
         <li className="cursor-pointer">
-          <NavTVSeriesIcon className="text-[#5A698F] hover:text-white transition duration-200" />
+          <NavTVSeriesIcon className="text-[#5A698F] hover:text-red-primary transition duration-200" />
         </li>
         <li className="cursor-pointer">
-          <NavBookmarkIcon className="text-[#5A698F] hover:text-white transition duration-200" />
+          <NavBookmarkIcon className="text-[#5A698F] hover:text-red-primary transition duration-200" />
         </li>
       </ul>
     </nav>

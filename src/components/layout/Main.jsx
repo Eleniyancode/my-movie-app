@@ -47,7 +47,7 @@ function Main() {
     >
       <SearchBar query={query} setQuery={setQuery} />
       {query ? (
-        <QueryResultList movies={movies} />
+        <QueryResultList movies={movies} query={query} />
       ) : (
         <>
           <TrendingList />

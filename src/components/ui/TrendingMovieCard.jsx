@@ -9,7 +9,7 @@ function TrendingMovieCard({ movie }) {
 
   return (
     <div
-      className={`relative w-125 h-62.5 rounded-md bg-[url(${BACKDROP_BASE_URL}${movie.backdrop_path})] bg-cover bg-center`}
+      className={`cursor-pointer relative w-125 h-62.5 rounded-md bg-[url(${BACKDROP_BASE_URL}${movie.backdrop_path})] bg-cover bg-center`}
       style={{
         backgroundImage: `url(${BACKDROP_BASE_URL}${movie.backdrop_path})`,
         backgroundSize: "cover",
