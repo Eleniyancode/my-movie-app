@@ -13,6 +13,7 @@ export const MovieProvider = ({ children }) => {
   const [trailer, setTrailer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [id, setId] = useState(null);
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -103,6 +104,7 @@ export const MovieProvider = ({ children }) => {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
       const data = await res.json();
+      console.log(data);
       setMovie(data);
     } catch (err) {
       setError("Failed to fetch movie details");
@@ -140,12 +142,15 @@ export const MovieProvider = ({ children }) => {
     <MovieContext.Provider
       value={{
         trendingMovies,
+        id,
+        setId,
         movies,
         movie,
         trailer,
         loading,
         setLoading,
         error,
+        fetchTrendingMovies,
         fetchPopularMovies,
         fetchMovieDetails,
         fetchMovieTrailer,

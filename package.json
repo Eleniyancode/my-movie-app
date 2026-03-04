@@ -13,8 +13,10 @@
     "@tailwindcss/vite": "^4.2.1",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
-    "react": "^19.2.0",
+    "react": "^19.2.4",
     "react-dom": "^19.2.0",
+    "react-router-dom": "^7.13.1",
+    "router-dom": "^3.0.3",
     "tailwindcss": "^4.2.1",
     "vite-plugin-svgr": "^4.5.0"
   },
