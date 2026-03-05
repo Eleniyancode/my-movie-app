@@ -3,16 +3,11 @@ import SearchBar from "../components/ui/SearchBar";
 import RecommendedMovieCard from "../components/ui/RecommendedMovieCard";
 import { useMovieContext } from "../context/useMovieContext";
 import QueryResultList from "../components/layout/QueryResultList";
+import TVSeriesCard from "../components/ui/TVSeriesCard";
 
 function Popular() {
-  const {
-    page,
-    totalPages,
-    loading,
-    loadNextPage,
-    movies,
-    fetchPopularMovies,
-  } = useMovieContext();
+  const { page, totalPages, loading, loadNextPage, tvSeries, fetchTVSeries } =
+    useMovieContext();
   const [query, setQuery] = useState("");
 
   const containerRef = useRef(null);
@@ -21,7 +16,7 @@ function Popular() {
   const loadingRef = useRef(loading);
 
   useEffect(() => {
-    fetchPopularMovies();
+    fetchTVSeries();
   }, []);
 
   useEffect(() => {
@@ -39,7 +34,6 @@ function Popular() {
         pageRef.current < totalPages &&
         !loadingRef.current
       ) {
-        console.log("loadnext page");
         loadNextPage();
       }
     };
@@ -56,14 +50,14 @@ function Popular() {
     >
       <SearchBar query={query} setQuery={setQuery} />
       {query ? (
-        <QueryResultList movies={movies} query={query} />
+        <QueryResultList movies={tvSeries} query={query} />
       ) : (
         <>
           <div className="flex flex-col gap-5 mt-5 ">
-            <h1 className="text-white font-outfit text-2xl">Popular Movies</h1>
+            <h1 className="text-white font-outfit text-2xl">TV Series</h1>
             <ul className="flex justify-center items-center flex-wrap gap-5 md:gap-10">
-              {movies.map((movie) => (
-                <RecommendedMovieCard key={movie.id} movie={movie} />
+              {tvSeries.map((movie) => (
+                <TVSeriesCard key={movie.id} movie={movie} />
               ))}
             </ul>
 

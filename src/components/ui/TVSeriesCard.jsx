@@ -7,10 +7,10 @@ import { NavLink } from "react-router-dom";
 
 const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
 
-function RecommendedMovieCard({ movie }) {
+function TVSeriesCard({ movie }) {
   const { setId } = useMovieContext();
-  const movieYear = new Date(movie.release_date).getFullYear();
-  const rating = Math.round(movie.vote_average);
+  const movieYear = new Date(movie.first_air_date).getFullYear();
+  const rating = Math.round(Number(movie.vote_average));
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ function RecommendedMovieCard({ movie }) {
           <h1
             className={`text-[16px]  ${isHovered ? "underline text-red-primary" : "text-white"}`}
           >
-            {movie.title}
+            {movie.name}
           </h1>
         </div>
       </div>
@@ -50,4 +50,4 @@ function RecommendedMovieCard({ movie }) {
   );
 }
 
-export default RecommendedMovieCard;
+export default TVSeriesCard;

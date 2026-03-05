@@ -34,7 +34,7 @@ function NavBar() {
         </li>
         <li className="cursor-pointer">
           <NavLink
-            to="popular"
+            to="/popular"
             className={({ isActive }) =>
               isActive
                 ? "text-white"

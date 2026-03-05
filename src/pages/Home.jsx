@@ -4,6 +4,7 @@ import RecommendedList from "../components/layout/RecommendedList";
 import TrendingList from "../components/layout/TrendingList";
 import { useMovieContext } from "../context/useMovieContext";
 import QueryResultList from "../components/layout/QueryResultList";
+import MovieCardSkeleton from "../components/ui/MovieCardSkeleton";
 
 function Home() {
   const { page, totalPages, loading, loadNextPage, movies } = useMovieContext();
@@ -30,7 +31,6 @@ function Home() {
         pageRef.current < totalPages &&
         !loadingRef.current
       ) {
-        console.log("loadnext page");
         loadNextPage();
       }
     };
@@ -39,6 +39,15 @@ function Home() {
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [totalPages, loadNextPage]);
+
+  if (loading)
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full p-10">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <MovieCardSkeleton key={i} />
+        ))}
+      </div>
+    );
 
   return (
     <div

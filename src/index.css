@@ -42,3 +42,18 @@
   --leading-heading-lg: var(--leading-lg);
   --leading-heading-md: var(--leading-md);
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #2d2d2d 25%, #3a3a3a 37%, #2d2d2d 63%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite linear;
+}

@@ -6,28 +6,24 @@ import MovieDetails from "./pages/MovieDetails";
 import NotFound from "./pages/NotFound";
 import Trending from "./pages/Trending";
 import Bookmark from "./pages/Bookmark";
+
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 function App() {
   return (
     <Routes>
+      {/* Auth Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
       <Route path="/" element={<Layout />}>
-        {/* Home */}
         <Route index element={<Home />} />
-
-        {/* Popular */}
-        <Route path="popular" element={<Popular />} />
-
-        {/* Trending */}
-        <Route path="trending" element={<Trending />} />
-
-        {/* Bookmark */}
-        <Route path="bookmark" element={<Bookmark />} />
-
-        {/* Dynamic Movie Details */}
-        <Route path="movie/:id" element={<MovieDetails />} />
-
-        {/* 404 */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="/popular" element={<Popular />} />
+        <Route path="/trending" element={<Trending />} />
+        <Route path="/bookmark" element={<Bookmark />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

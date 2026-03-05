@@ -10,6 +10,7 @@ export const MovieProvider = ({ children }) => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
+  const [tvSeries, setTvSeries] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -23,14 +24,13 @@ export const MovieProvider = ({ children }) => {
   const [query, setQuery] = useState("");
 
   // 🔥 Fetch Popular Movies
-  const fetchTrendingMovies = async () => {
+  const fetchTrendingMovies = async (pageNum = 1) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`,
+        `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=${pageNum}`,
       );
       const data = await res.json();
-      console.log(data.results);
       setTrendingMovies(data.results);
     } catch (err) {
       setError("Failed to fetch trending movies");
@@ -41,15 +41,35 @@ export const MovieProvider = ({ children }) => {
   };
 
   // 🔥 Fetch Popular Movies
-  const fetchPopularMovies = async (pageNum = 1) => {
+  const fetchMovies = async (pageNum = 1) => {
     try {
       setLoading(true);
       const res = await fetch(
         `${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${pageNum}`,
       );
       const data = await res.json();
-      console.log(data.results);
       setMovies((prev) =>
+        pageNum === 1 ? data.results : [...prev, ...data.results],
+      );
+      setPage(data.page);
+      setTotalPages(data.total_pages);
+    } catch (err) {
+      setError("Failed to fetch movies");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔥 Fetch Popular Movies
+  const fetchTVSeries = async (pageNum = 1) => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${BASE_URL}/tv/popular?api_key=${API_KEY}&page=${pageNum}`,
+      );
+      const data = await res.json();
+      setTvSeries((prev) =>
         pageNum === 1 ? data.results : [...prev, ...data.results],
       );
       setPage(data.page);
@@ -94,7 +114,9 @@ export const MovieProvider = ({ children }) => {
     if (query) {
       searchMovies(query, nextPage);
     } else {
-      fetchPopularMovies(nextPage);
+      fetchTrendingMovies(nextPage);
+      fetchMovies(nextPage);
+      fetchTVSeries(nextPage);
     }
   }, [page, totalPages, query]);
 
@@ -104,7 +126,6 @@ export const MovieProvider = ({ children }) => {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
       const data = await res.json();
-      console.log(data);
       setMovie(data);
     } catch (err) {
       setError("Failed to fetch movie details");
@@ -135,7 +156,8 @@ export const MovieProvider = ({ children }) => {
 
   useEffect(() => {
     fetchTrendingMovies();
-    fetchPopularMovies();
+    fetchMovies();
+    fetchTVSeries();
   }, []);
 
   return (
@@ -145,13 +167,15 @@ export const MovieProvider = ({ children }) => {
         id,
         setId,
         movies,
+        tvSeries,
         movie,
         trailer,
         loading,
         setLoading,
         error,
         fetchTrendingMovies,
-        fetchPopularMovies,
+        fetchMovies,
+        fetchTVSeries,
         fetchMovieDetails,
         fetchMovieTrailer,
         searchMovies,

@@ -5,14 +5,8 @@ import { useMovieContext } from "../context/useMovieContext";
 import QueryResultList from "../components/layout/QueryResultList";
 
 function Trending() {
-  const {
-    page,
-    totalPages,
-    loading,
-    loadNextPage,
-    movies,
-    fetchTrendingMovies,
-  } = useMovieContext();
+  const { page, totalPages, loading, loadNextPage, movies, fetchMovies } =
+    useMovieContext();
   const [query, setQuery] = useState("");
 
   const containerRef = useRef(null);
@@ -21,7 +15,7 @@ function Trending() {
   const loadingRef = useRef(loading);
 
   useEffect(() => {
-    fetchTrendingMovies();
+    fetchMovies();
   }, []);
 
   useEffect(() => {
@@ -40,7 +34,6 @@ function Trending() {
         pageRef.current < totalPages &&
         !loadingRef.current
       ) {
-        console.log("loadnext page");
         loadNextPage();
       }
     };
@@ -61,7 +54,7 @@ function Trending() {
       ) : (
         <>
           <div className="flex flex-col gap-5 mt-5 ">
-            <h1 className="text-white font-outfit text-2xl">Trending Movies</h1>
+            <h1 className="text-white font-outfit text-2xl">Movies</h1>
             <ul className="flex justify-center items-center flex-wrap gap-5 md:gap-10">
               {movies.map((movie) => (
                 <RecommendedMovieCard key={movie.id} movie={movie} />

@@ -2,16 +2,6 @@ import { useMovieContext } from "../../context/useMovieContext";
 import Carousel from "../ui/Carousel";
 import TrendingMovieCard from "../ui/TrendingMovieCard";
 
-// const slides = [
-//   <MovieCard />,
-//   <MovieCard />,
-//   <MovieCard />,
-//   <MovieCard />,
-//   <MovieCard />,
-//   <MovieCard />,
-//   <MovieCard />,
-// ];
-
 function TrendingList() {
   const { trendingMovies } = useMovieContext();
   const slides = trendingMovies.map((movie) => (
