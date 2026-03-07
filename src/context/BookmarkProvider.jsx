@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { db, auth } from "../firebase/firebase";
+// import React, { useEffect, useState } from "react";
+import { auth, db } from "../firebase/firebase";
 import {
   collection,
   getDocs,
@@ -8,10 +8,11 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { BookmarkContext } from "./BookmarkContext";
+import { useEffect, useState } from "react";
 
 export function BookmarkProvider({ children }) {
-  const [bookmarks, setBookmarks] = useState([]);
-  const [loadingBookmark, setLoadingBookmark] = useState(false);
+  // const [bookmarks, setBookmarks] = useState([]);
+  // const [loadingBookmark, setLoadingBookmark] = useState(false);
 
   // Load bookmarks when user logs in
   // useEffect(() => {
@@ -30,54 +31,40 @@ export function BookmarkProvider({ children }) {
   // }, [auth.currentUser]);
 
   // Load bookmarks for signed-in user
-  const loadBookmarks = async (userId) => {
-    if (!userId) return;
-    setLoadingBookmark(true);
-    try {
-      const moviesSnapshot = await getDocs(
-        collection(db, "bookmarks", userId, "movies"),
-      );
-      const movies = moviesSnapshot.docs.map((doc) => doc.data());
-      setBookmarks(movies);
-    } catch (err) {
-      console.error("Error loading bookmarks:", err);
-    }
-    setLoadingBookmark(false);
-  };
+  const [bookmarks, setBookmarks] = useState([]);
 
-  async function addBookmark(movie) {
-    if (!auth.currentUser) return;
-    const userId = auth.currentUser.uid;
+  async function getBookmarks(userId) {
+    const querySnapshot = await getDocs(
+      collection(db, "bookmarks", userId, "movies"),
+    );
 
-    try {
-      setLoadingBookmark(true);
-      await setDoc(
-        doc(db, "users", userId, "bookmarks", movie.id.toString()),
-        movie,
-      );
-      setBookmarks((prev) => [...prev, movie]);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoadingBookmark(false);
-    }
+    querySnapshot.forEach((doc) => {
+      setBookmarks((prev) => [...prev, { id: doc.id, ...doc.data() }]);
+      // bookmarks.push({
+      //   id: doc.id,
+      //   ...doc.data(),
+      // });
+    });
+
+    return bookmarks;
   }
 
-  async function removeBookmark(movieId) {
-    if (!auth.currentUser) return;
-    const userId = auth.currentUser.uid;
+  async function addBookmark(userId, movie) {
+    await setDoc(
+      doc(db, "bookmarks", userId, "movies", movie.id.toString()),
+      movie,
+    );
 
-    try {
-      setLoadingBookmark(true);
-      await deleteDoc(
-        doc(db, "users", userId, "bookmarks", movieId.toString()),
-      );
-      setBookmarks((prev) => prev.filter((m) => m.id !== movieId));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoadingBookmark(false);
-    }
+    setBookmarks((prev) => [...prev, movie]);
+    console.log("added bookmark");
+    console.log(bookmarks);
+  }
+
+  async function removeBookmark(userId, movieId) {
+    await deleteDoc(doc(db, "bookmarks", userId, "movies", movieId.toString()));
+    setBookmarks((prev) => prev.filter((item) => item.id !== movieId));
+    console.log("remove bookmark");
+    console.log(bookmarks);
   }
 
   const isBookmarked = (movieId) => bookmarks.some((m) => m.id === movieId);
@@ -85,7 +72,7 @@ export function BookmarkProvider({ children }) {
   // Listen to auth changes and load bookmarks
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) loadBookmarks(user.uid);
+      if (user) getBookmarks(user.uid);
       else setBookmarks([]);
     });
     return unsubscribe;
@@ -98,7 +85,7 @@ export function BookmarkProvider({ children }) {
         addBookmark,
         removeBookmark,
         isBookmarked,
-        loadingBookmark,
+        getBookmarks,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import Spinner from "../components/ui/Spinner";
 import YouTubePlayer from "../components/ui/YoutubePlayer";
 import { useAuth } from "../context/useAuthContext";
 import { useBookmark } from "../context/useBookmarkContext";
+import AuthModal from "../components/ui/AuthModal";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -14,22 +15,35 @@ function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingBookmark, setLoadingBookmark] = useState(false);
   const [error, setError] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
 
+  const [showModal, setShowModal] = useState(false);
+
   const { user } = useAuth();
-  const { addBookmark, removeBookmark, isBookmarked, loadingBookmark } =
-    useBookmark();
+  const { addBookmark, removeBookmark, isBookmarked } = useBookmark();
 
-  function handleBookmark() {
-    if (!user) return;
-
-    if (isBookmarked) {
-      removeBookmark(movie.id);
-    } else {
-      addBookmark(movie);
+  const handleBookmark = async () => {
+    if (!user) {
+      setShowModal(true);
+      return;
     }
-  }
+    console.log(user);
+
+    try {
+      setLoadingBookmark(true);
+      if (isBookmarked(movie.id)) {
+        removeBookmark(user.uid, movie.id);
+      } else {
+        addBookmark(user.uid, movie);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingBookmark(false);
+    }
+  };
 
   useEffect(() => {
     // 🎬 Fetch Single Movie Details
@@ -87,14 +101,20 @@ function MovieDetails() {
           className={`flex bg-white text-blue-tertiary p-3 px-9 rounded-2xl cursor-pointer hover:text-red-500 hover:bg-blue-secondary ${isBookmarked ? "bg-blue-secondary text-red-primary" : ""} transition duration-500 justify-center items-center gap-3`}
         >
           {loadingBookmark ? (
-            <Spinner />
+            <Spinner size="sm" />
           ) : (
             <>
               <span>Bookmark</span>
               <IconBookmarkEmpty className=" " />
             </>
           )}
+          {/* <>
+            <span>Bookmark</span>
+            <IconBookmarkEmpty className=" " />
+          </> */}
         </button>
+
+        <AuthModal isOpen={showModal} onClose={() => setShowModal(false)} />
       </div>
 
       <div className="mt-5 flex flex-col gap-5">

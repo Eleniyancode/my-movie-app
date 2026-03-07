@@ -58,7 +58,7 @@ export default function Login() {
 
           <p className="text-sm text-center">
             Don’t have an account?{" "}
-            <Link to="/" className="text-blue-600">
+            <Link to="/signup" className="text-blue-600">
               Sign Up
             </Link>
           </p>
