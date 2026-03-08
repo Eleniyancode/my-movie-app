@@ -85,7 +85,7 @@ function MovieDetails() {
   if (!movie) return <p>Movie not found</p>;
 
   return (
-    <div className="text-white md:mx-10 w-full h-screen overflow-y-scroll md:p-10">
+    <div className="text-white md:mx-10 w-full h-screen overflow-y-scroll p-5">
       <div className="w-full h-[60%]">
         {trailerKey && <YouTubePlayer videoId={trailerKey} />}
       </div>
