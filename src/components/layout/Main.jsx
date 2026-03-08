@@ -43,7 +43,7 @@ function Main() {
   return (
     <div
       ref={containerRef}
-      className="mx-5 w-[95%] mt-5 mb-5 lg:pb-20 h-screen overflow-y-scroll  bg-blue-primary"
+      className="md:mx-5 md:w-[95%] mt-5 mb-5 lg:pb-20 h-screen overflow-y-scroll  bg-blue-primary"
     >
       <SearchBar query={query} setQuery={setQuery} />
       {query ? (

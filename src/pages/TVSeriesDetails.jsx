@@ -85,12 +85,12 @@ function TVSeriesDetails() {
   if (!movie) return <p>Movie not found</p>;
 
   return (
-    <div className="text-white mx-10  w-full h-screen overflow-y-scroll p-10">
+    <div className="text-white md:mx-10  w-full h-screen overflow-y-scroll md:p-10">
       <div className="w-full h-[60%]">
         {trailerKey && <YouTubePlayer videoId={trailerKey} />}
       </div>
 
-      <div className="mt-5 flex justify-between items-center pr-10">
+      <div className="mt-5 flex flex-col md:flex-row gap-3 md:justify-between md:items-center pr-10">
         <div>
           <p className="text-xl">{movie.name}</p>
           <Rating value={Math.round(movie.vote_average)} />
