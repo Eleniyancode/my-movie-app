@@ -4,6 +4,7 @@ import { useMovieContext } from "../../context/useMovieContext.js";
 
 import Rating from "./Rating.jsx";
 import { NavLink } from "react-router-dom";
+import { useBookmark } from "../../context/useBookmarkContext.js";
 
 const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
 
@@ -12,6 +13,11 @@ function RecommendedMovieCard({ movie }) {
   const movieYear = new Date(movie.release_date).getFullYear();
   const rating = Math.round(movie.vote_average);
   const [isHovered, setIsHovered] = useState(false);
+  const { isBookmarked } = useBookmark();
+
+  function checkBookmark() {
+    return isBookmarked(movie.id);
+  }
 
   return (
     <NavLink
@@ -29,15 +35,17 @@ function RecommendedMovieCard({ movie }) {
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute cursor-pointer top-5 right-5 h-7.5 w-7.5 rounded-full bg-blue-tertiary flex justify-center items-center">
-            <IconBookmarkEmpty className="hover:text-white text-blue-tertiary" />
-          </div>
+          {checkBookmark() && (
+            <div className="absolute cursor-pointer top-5 right-5 h-7.5 w-7.5 rounded-full bg-blue-tertiary flex justify-center items-center">
+              <IconBookmarkEmpty className=" text-white" />
+            </div>
+          )}
         </div>
 
         <div className="text-gray-300  md:text-body-sm text-[8px]">
           <div className="flex gap-2 justify-right items-center">
             <p>{movieYear}</p>
-            <Rating value={rating} size={9} />
+            <Rating value={rating} size={9} showNumber={false} />
           </div>
           <h1
             className={`text-[16px]  ${isHovered ? "underline text-red-primary" : "text-white"}`}

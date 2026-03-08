@@ -1,8 +1,11 @@
 import NavBar from "../ui/NavBar";
 import { auth } from "../../firebase/firebase";
 import { signOut } from "firebase/auth";
+import { useAuth } from "../../context/useAuthContext";
 
 function SideBar() {
+  const { user } = useAuth();
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -17,13 +20,16 @@ function SideBar() {
         <img src="../assets/logo.svg" alt="logo-icon" className="size-5" />
         <NavBar />
       </div>
-      <div className="md:flex-1 md:flex flex flex-col md:justify-end md:items-center gap-5 ">
-        <button
-          onClick={() => handleLogout()}
-          className="text-white py-3 px-2 bg-blue-tertiary rounded-2xl cursor-pointer hover:bg-blue-secondary hover:text-red-primary transition duration-200"
-        >
-          Logout
-        </button>
+      <div className="md:flex-1 md:flex flex md:flex-col md:justify-end md:items-center gap-5 ">
+        {user && (
+          <button
+            onClick={() => handleLogout()}
+            className="text-white py-3 px-2 bg-blue-tertiary rounded-2xl cursor-pointer hover:bg-blue-secondary hover:text-red-primary transition duration-200"
+          >
+            Logout
+          </button>
+        )}
+
         <img
           src="../assets/image-avatar.png"
           alt="image-avatar"

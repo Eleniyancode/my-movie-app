@@ -15,7 +15,7 @@ export default function Login() {
     try {
       setLoading(true);
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate("/app");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     } finally {

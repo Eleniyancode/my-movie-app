@@ -126,7 +126,11 @@ export const MovieProvider = ({ children }) => {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
       const data = await res.json();
-      setMovie(data);
+      const movie = {
+        ...data,
+        media_type: "movie",
+      };
+      setMovie(movie);
     } catch (err) {
       setError("Failed to fetch movie details");
       console.error(err);

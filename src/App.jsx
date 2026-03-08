@@ -9,6 +9,7 @@ import Bookmark from "./pages/Bookmark";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import TVSeriesDetails from "./pages/TVSeriesDetails";
 function App() {
   return (
     <Routes>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/trending" element={<Trending />} />
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/tv/:id" element={<TVSeriesDetails />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
