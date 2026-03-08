@@ -22,7 +22,7 @@ function SearchBar({ query, setQuery }) {
     }
   };
   return (
-    <div className="flex gap-3 items-center justify-left relative">
+    <div className="flex gap-3 items-center justify-left md:justify-between px-5 relative">
       <IconSearch className="text-white size-10 absolute top-1 left-2 " />
       <Input
         customstyle="text-[16px] pl-15"
