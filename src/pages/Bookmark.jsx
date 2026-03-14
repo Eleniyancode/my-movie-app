@@ -38,7 +38,7 @@ export default function Bookmark() {
   // 2️⃣ Logged in but no bookmarks
   if (bookmarks.length === 0) {
     return (
-      <div className="bookmark-container">
+      <div className="bookmark-container text-white flex justify-center items-center flex-col w-full">
         <h2>Your Bookmarks</h2>
 
         <p>You haven't bookmarked any movies yet.</p>
